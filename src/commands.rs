@@ -33,6 +33,11 @@ pub fn run_quick(
     } else {
         run_git(&["commit", "-m", &message]);
     }
+    
+    if sync {
+        println!("Syncing (pull rebase)...");
+        run_git(&["pull", "--rebase", "--reapply-cherry-picks"]);
+    }
 
     if !nopush {
         println!("Pushing...");
