@@ -25,4 +25,4 @@ Automatically:
 
 shows a readable status of your git, not much more.
 
-> you cannot install this yet, im still developing this.
+> **FYI** you cannot install this yet, im still developing this.
