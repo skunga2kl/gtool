@@ -19,7 +19,9 @@ enum Commands {
     Raw {
         #[arg()]
         args: Vec<String>,
-    }
+    },
+
+    Status 
 }
 
 fn run_git(args: &[&str]) {
@@ -30,6 +32,16 @@ fn run_git(args: &[&str]) {
 
     print!("{}", String::from_utf8_lossy(&output.stdout));
     eprint!("{}", String::from_utf8_lossy(&output.stderr));
+}
+
+fn run_status() {
+    let output = Command::new("git")
+        .args(&["status", "--short", "--branch"])
+        .output()
+        .expect("failed to run git");
+
+    let text = String::from_utf8_lossy(&output.stdout);
+    println!("{}", text);
 }
 
 fn main() {
@@ -45,6 +57,10 @@ fn main() {
 
             println!("Pushing...");
             run_git(&["push"]);
+        }
+
+        Commands::Status => {
+            run_status();
         }
 
         Commands::Raw { args } => {
