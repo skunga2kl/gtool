@@ -13,7 +13,19 @@ struct Cli {
 enum Commands {
     Quick {
         #[arg(short, long)]
-        message: String
+        message: String,
+
+        #[arg(long, default_value_t = false)]
+        nopush: bool,
+
+        #[arg(long, default_value_t = false)]
+        amend: bool,
+
+        #[arg(short, long, default_value_t = false)]
+        all: bool,
+
+        #[arg(long)]
+        files: Vec<String>
     },
 
     Raw {
@@ -48,15 +60,34 @@ fn main() {
     let cli = Cli::parse();
 
     match cli.command {
-        Commands::Quick { message } => {
+        Commands::Quick { message, nopush, amend, all, files } => {
             println!("Adding...");
-            run_git(&["add", "."]);
+
+            if !files.is_empty() {
+                let file_refs: Vec<&str> = files.iter().map(|f| f.as_str()).collect();
+                run_git(&["add"]);
+                run_git(&file_refs);
+            }
+
+            else if all {
+                
+            } else {
+                run_git(&["add", "."]);
+            }
 
             println!("Committing...");
-            run_git(&["commit", "-m", &message]);
+            if amend {
+                run_git(&["commit", "--amend", "-m", &message]);
+            } else if all {
+                run_git(&["commit", "-a", "-m", &message]);            
+            } else {
+                run_git(&["commit", "-m", &message]);
+            }           
 
-            println!("Pushing...");
-            run_git(&["push"]);
+            if !nopush {
+                println!("Pushing...");
+                run_git(&["push"]);
+            }
         }
 
         Commands::Status => {
