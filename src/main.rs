@@ -10,8 +10,8 @@ fn main() {
     let cli = Cli::parse();
 
     match cli.command {
-        Commands::Quick { message, nopush, amend, all, files } =>
-            run_quick(message, nopush, amend, all, files),
+        Commands::Quick { message, nopush, amend, all, files, sync   } =>
+            run_quick(message, nopush, amend, all, files, sync),
 
         Commands::Status =>
             run_status_command(),

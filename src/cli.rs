@@ -25,6 +25,9 @@ pub enum Commands {
 
         #[arg(long)]
         files: Vec<String>,
+
+        #[arg(long, default_value_t = false)]
+        sync: bool
     },
 
     Raw {

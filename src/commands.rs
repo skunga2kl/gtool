@@ -5,8 +5,14 @@ pub fn run_quick(
     nopush: bool,
     amend: bool,
     all: bool,
-    files: Vec<String>
+    files: Vec<String>,
+    sync: bool
 ) {
+    if sync {
+        println!("Syncing (pull rebase)...");
+        run_git(&["pull", "--rebase"]);
+    }
+
     println!("Adding...");
 
     if !files.is_empty() {
