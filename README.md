@@ -13,7 +13,7 @@ is very boring, so i made this.
 
 ## features
 
-  **quick commits**
+### quick commits
 
 Automatically:
 - adds files
@@ -21,7 +21,7 @@ Automatically:
 - and pushes!
 (with options like `--no-push`, `--amend`, `--files`, etc.)
 
-  **status command**
+### status command
 
 shows a readable status of your git, not much more.
 
