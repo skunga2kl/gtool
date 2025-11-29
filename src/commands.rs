@@ -1,4 +1,5 @@
 use crate::git::{run_git, run_status};
+use colored::Colorize;
 
 pub fn run_quick(
     message: String,
@@ -25,7 +26,7 @@ pub fn run_quick(
         run_git(&["add", "."]);
     }
 
-    println!("Committing...");
+    println!("{}", "Committing...".green());
     if amend {
         run_git(&["commit", "--amend", "-m", &message]);
     } else if all {
