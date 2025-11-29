@@ -10,11 +10,11 @@ pub fn run_quick(
     sync: bool
 ) {
     if sync {
-        println!("Syncing (pull rebase)...");
+        println!("{}", "Syncing (pull rebase)...".green());
         run_git(&["pull", "--rebase"]);
     }
 
-    println!("Adding...");
+    println!("{}", "Adding...".bright_green());
 
     if !files.is_empty() {
         let file_refs: Vec<&str> = files.iter().map(|f| f.as_str()).collect();
@@ -26,7 +26,7 @@ pub fn run_quick(
         run_git(&["add", "."]);
     }
 
-    println!("{}", "Committing...".green());
+    println!("{}", "Committing...".bright_green());
     if amend {
         run_git(&["commit", "--amend", "-m", &message]);
     } else if all {
@@ -36,12 +36,12 @@ pub fn run_quick(
     }
     
     if sync {
-        println!("Syncing (pull rebase)...");
+        println!("{}", "Syncing (pull rebase)...".bright_green());
         run_git(&["pull", "--rebase", "--reapply-cherry-picks"]);
     }
 
     if !nopush {
-        println!("Pushing...");
+        println!("{}", "Pushing...".bright_green());
         run_git(&["push"]);
     }
 }
