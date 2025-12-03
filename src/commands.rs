@@ -1,7 +1,7 @@
 use crate::git::{run_git, run_status};
 use colored::Colorize;
 
-pub fn run_quick(
+pub fn run_quick (
     message: String,
     nopush: bool,
     amend: bool,
@@ -9,17 +9,28 @@ pub fn run_quick(
     files: Vec<String>,
     sync: bool
 ) {
+    if message.trim().is_empty() {
+        eprintln!("{}", "Error: you cannot have an empty commit message".red());
+        return;
+    }
+
     if sync {
         println!("{}", "Syncing (pull rebase)...".green());
+        println!(
+            "{}",
+            "Note: if you have local changes, the rebase may cause conflicts"
+                .yellow()
+        );
         run_git(&["pull", "--rebase"]);
-    }
+    }    
 
     println!("{}", "Adding...".bright_green());
 
     if !files.is_empty() {
-        let file_refs: Vec<&str> = files.iter().map(|f| f.as_str()).collect();
-        run_git(&["add"]);
-        run_git(&file_refs);
+        let mut cmd: Vec<&str> = vec!["add"];
+        for f in &files {
+            cmd.push(f.as_str());
+        }    
     } else if all {
         run_git(&["add", "-A"]);
     } else {
@@ -38,6 +49,12 @@ pub fn run_quick(
     if sync {
         println!("{}", "Syncing (pull rebase)...".bright_green());
         run_git(&["pull", "--rebase", "--reapply-cherry-picks"]);
+
+        println!(
+            "{}",
+            "Note: if you see conflict markers in files, the rebase needs manual fixing"
+            .yellow()
+        )
     }
 
     if !nopush {
