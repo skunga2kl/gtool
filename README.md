@@ -24,5 +24,3 @@ Automatically:
 ### status command
 
 shows a readable status of your git, not much more.
-
-> **FYI** you cannot install this yet, im still developing this.
