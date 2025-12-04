@@ -18,4 +18,6 @@ pub fn run_status() {
 
     let text = String::from_utf8_lossy(&output.stdout);
     println!("{}", text);
+
+    println!("Hello");
 }
