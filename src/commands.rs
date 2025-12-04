@@ -30,7 +30,8 @@ pub fn run_quick (
         let mut cmd: Vec<&str> = vec!["add"];
         for f in &files {
             cmd.push(f.as_str());
-        }    
+        }
+        run_git(&cmd);    
     } else if all {
         run_git(&["add", "-A"]);
     } else {
