@@ -1,6 +1,9 @@
 # gtool 
 *tiny little rust-powered git helper tool because why not?*
 
+> this thing is stable. no more major features coming out.
+
+
 ## what does it do?
 
 **gtool** makes git commands shorter and lazier, because typing  
